@@ -1,8 +1,10 @@
 import React from 'react';
+import axios from 'axios';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser,faKey } from '@fortawesome/free-solid-svg-icons';
+//import APIHOST from '../../app.json';
 
 export default class login extends React.Component {
     constructor(props) {
@@ -13,7 +15,16 @@ export default class login extends React.Component {
         };
     }
     iniciarSesion(){
-        alert(`usuario: ${this.state.usuario} - password: ${this.state.pass}`);
+        axios.post(`http://localhost:3001/usuarios/login`, {
+            usuario: this.state.usuario,
+            pass:this.state.pass,
+        })
+        .then((response)=> {
+            console.log(response);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
     render() {
         return (
