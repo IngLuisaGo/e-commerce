@@ -3,8 +3,15 @@ import axios from 'axios';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser,faKey } from '@fortawesome/free-solid-svg-icons';
-//import APIHOST from '../../app.json';
+import { faCircleUser, faKey } from '@fortawesome/free-solid-svg-icons';
+import app from '../../app.json'
+import { isNull } from "util";
+import Cookies from "universal-cookie";
+import {calcularExpiracionSesion} from "../helper/helper";
+
+
+const { APIHOST } = app
+const cookies = new Cookies();
 
 export default class login extends React.Component {
     constructor(props) {
@@ -14,17 +21,24 @@ export default class login extends React.Component {
             pass: '',
         };
     }
-    iniciarSesion(){
-        axios.post(`http://localhost:3001/usuarios/login`, {
+    iniciarSesion() {
+        axios.post(`${APIHOST}/usuarios/login`, {
             usuario: this.state.usuario,
-            pass:this.state.pass,
+            pass: this.state.pass,
         })
-        .then((response)=> {
-            console.log(response);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then((response) => {
+                if (isNull(response.data.token)) {
+                    alert("Usuario y/o contraseña invalidos");
+                } else {
+                    cookies.set('_s', response.data.token, {
+                        path: "/",
+                        expires:calcularExpiracionSesion(),
+            });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
     render() {
         return (
@@ -51,12 +65,12 @@ export default class login extends React.Component {
                                     <Form.Group>
                                         <Form.Label className='Form-Label'><FontAwesomeIcon icon={faKey} /> Contraseña</Form.Label>
                                         <Form.Control type="password" onChange={(e => this.setState({ pass: e.target.value }))} />
-                                       {/* {
+                                        {/* {
                                             this.state.pass
                                         }*/}
                                     </Form.Group>
 
-                                    <Button variant="primary" onClick={()=>{this.iniciarSesion();}}>
+                                    <Button variant="primary" onClick={() => { this.iniciarSesion(); }}>
                                         Iniciar sesión
                                     </Button>
                                 </Form>
