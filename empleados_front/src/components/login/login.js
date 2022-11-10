@@ -7,7 +7,8 @@ import { faCircleUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import app from '../../app.json'
 import { isNull } from "util";
 import Cookies from "universal-cookie";
-import {calcularExpiracionSesion} from "../helper/helper";
+import { calcularExpiracionSesion } from "../helper/helper";
+import Loading from "../loading/loading";
 
 
 const { APIHOST } = app
@@ -17,11 +18,13 @@ export default class login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            Loading: false,
             usuario: '',
             pass: '',
         };
     }
     iniciarSesion() {
+        this.setState({ loading: true });
         axios.post(`${APIHOST}/usuarios/login`, {
             usuario: this.state.usuario,
             pass: this.state.pass,
@@ -31,18 +34,22 @@ export default class login extends React.Component {
                     alert("Usuario y/o contraseña invalidos");
                 } else {
                     cookies.set('_s', response.data.token, {
-                        path: "/",
-                        expires:calcularExpiracionSesion(),
-            });
+                        path: '/',
+                        expires: calcularExpiracionSesion(),
+                    });
+                    this.props.history.push(window.open('/empleados'));
                 }
+                this.setState({ loading: false });
             })
             .catch((err) => {
                 console.log(err);
+                this.setState({ loading: false });
             });
     }
     render() {
         return (
             <Container id="login-container">
+                <Loading show={this.state.loading} />
                 <Row>
                     <Col>
                         <Row>
@@ -70,7 +77,7 @@ export default class login extends React.Component {
                                         }*/}
                                     </Form.Group>
 
-                                    <Button variant="primary" onClick={() => { this.iniciarSesion(); }}>
+                                    <Button variant="primary" onClick={() => { this.iniciarSesion(); }} >
                                         Iniciar sesión
                                     </Button>
                                 </Form>
