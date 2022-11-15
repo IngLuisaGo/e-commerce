@@ -10,3 +10,6 @@
     justify-content: center;
     margin-top: 5px;
 }
+.bg-primary{
+    background-color: currentcolor !important;
+}

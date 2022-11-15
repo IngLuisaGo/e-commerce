@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.title-initial {
+  color: red;
+}
+
+.title {
+  font-style: italic;
+  display:inline;
+  margin-top: 3vh !important;
+}
+
+.cards{
+
+  width: 75%;
+  
+  align-items: center;
+  margin: auto;
+}
+
+.bodyBack{
+  background-color: rgba(1, 1, 1, 0.042);
+  margin-top: 7.4vh;
+}

@@ -13,7 +13,7 @@ export default class menu extends React.Component {
 
     render() {
         return (
-            <Navbar fixed="top" id="navbar" bg="primary" expand="lg" variant='dark'>
+            <Navbar fixed="top" id="navbar" bg="primary" expand="lg" variant='dark' className="bg-primary">
                 <Container>
                     <Navbar.Brand href="#home">Stylolenanie.com</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
