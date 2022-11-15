@@ -22,7 +22,7 @@ export default class menu extends React.Component {
                             {/*<Nav.Link href="#home">Home</Nav.Link>
                             <Nav.Link href="#link">Link</Nav.Link>*/}
                         </Nav>
-                        <DropdownButton id="dropdown-basic-button" title="Usuario" >
+                        <DropdownButton id="dropdown-basic-button" title="Usuario" variant="secondary">
 
                             {/* <Dropdown.Header>
                                 <Dropdown.Item href="#/action-1">

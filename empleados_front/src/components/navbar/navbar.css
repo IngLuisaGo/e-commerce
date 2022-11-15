@@ -13,3 +13,12 @@
 .bg-primary{
     background-color: currentcolor !important;
 }
+
+.btn-secondary{
+    --bs-btn-color: #fff  !important;
+    --bs-btn-bg: #2c2c2c00  !important;
+    --bs-btn-border-color: #77777700 !important;
+    --bs-btn-hover-color: #fff  !important;
+    --bs-btn-hover-bg: #413a51  !important;
+    --bs-btn-hover-border-color: #00000000  !important;
+}
